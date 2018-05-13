@@ -18,7 +18,7 @@ public class JobData {
 
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
-
+    // below she set up a hash map called "allJobs"
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
@@ -33,13 +33,14 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>(); //setting up array list called "values"
 
-        for (HashMap<String, String> row : allJobs) {
-            String aValue = row.get(field);
 
-            if (!values.contains(aValue)) {
-                values.add(aValue);
+        for (HashMap<String, String> row : allJobs) { //for HashMap row in allJobs
+            String aValue = row.get(field); // takes the row and grabs the field that was picked see line 28
+
+            if (!values.contains(aValue)) { //if the array list "values" doesn't contain "aValue"
+                values.add(aValue); // it adds it to "values"
             }
         }
 
@@ -74,11 +75,12 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) {
                 jobs.add(row);
             }
+
         }
 
         return jobs;
@@ -124,5 +126,18 @@ public class JobData {
             e.printStackTrace();
         }
     }
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        loadData();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.toString();
+            if ((aValue.toLowerCase()).contains(value.toLowerCase())){
+                jobs.add(row);
+
+            }
+
+        } return jobs;
+
+    }
 }
